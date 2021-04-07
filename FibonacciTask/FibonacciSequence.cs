@@ -9,7 +9,8 @@ namespace FibonacciTask
     /// <seealso cref="https://en.wikipedia.org/wiki/Fibonacci_number"/>
     public class FibonacciSequence
     {
-        //TODO: Add necessary code and/or remove this comment.
+        private int _count;
+        private int _position = -1;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FibonacciSequence"/> class.
@@ -18,7 +19,12 @@ namespace FibonacciTask
         /// <exception cref="ArgumentException">Thrown if count of elements less than one.</exception>
         public FibonacciSequence(int count)
         {
-            throw new NotImplementedException();
+            if (count < 1)
+			{
+                throw new ArgumentException();
+			}
+
+            _count = count;
         }
 
         /// <summary>
@@ -27,11 +33,7 @@ namespace FibonacciTask
         /// <value>
         /// Value of current element in Fibonacci sequence.
         /// </value>
-        public BigInteger Current
-        {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
-        }
+        public BigInteger Current => Fibonacci(_position);
 
         /// <summary>
         /// Moves to the next element in the sequence.
@@ -41,7 +43,8 @@ namespace FibonacciTask
         /// </returns>
         public bool MoveNext()
         {
-            throw new NotImplementedException();
+            _position++;
+            return _position < _count;
         }
 
         /// <summary>
@@ -49,7 +52,23 @@ namespace FibonacciTask
         /// </summary>
         public void Reset()
         {
-            throw new NotImplementedException();
+            _position = -1;
+        }
+
+        static BigInteger Fibonacci(int n)
+        {
+            BigInteger a = 0;
+            BigInteger b = 1;
+            BigInteger tmp;
+
+            for (int i = 0; i < n; i++)
+            {
+                tmp = a;
+                a = b;
+                b += tmp;
+            }
+
+            return a;
         }
     }
 }
